@@ -42,6 +42,13 @@ calculate_runoff <- function(basin,
     basin <- sf::st_read(basin, quiet = quiet)
 
   ## ---- 2. Download TerraClim monthly stacks --------------------------------
+
+  if (!requireNamespace("climateR", quietly = TRUE)) {
+    stop("Package 'climateR' is required for calculate_runoff().\n",
+         "Install it with remotes::install_github(\"mikejohnson51/climateR\")",
+         call. = FALSE)
+  }
+
   ppt_list <- climateR::getTerraClim(
     AOI       = basin,
     varname   = ppt_var,

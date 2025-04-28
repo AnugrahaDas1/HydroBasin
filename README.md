@@ -50,10 +50,18 @@ remotes::install_github("AnugrahaDas1/HydroBasin")
 
 ### Dependencies
 
-HydroBasin relies on several key packages: - **SAiVE/WhiteboxTools**:
-For terrain analysis and watershed delineation - **climateR**: For
-accessing TerraClim climate data - **sf/terra**: For spatial data
-handling - **ggplot2**: For visualization
+HydroBasin stitches together the best bits of the R-spatial stack.
+Most install automatically with install.packages(); one lives only on GitHub and is optional.
+
+Purpose | Package(s) | Notes
+Terrain preprocessing & watershed delineation | SAiVE, whitebox | Wrapper + command-line binary for WhiteboxTools. Both pulled in automatically.
+Climate grids (TerraClim) | climateR | Not on CRAN. Install only if you need run-off calculations:<br/>r<br>remotes::install_github("mikejohnson51/climateR")<br>
+Vector / raster handling | sf, terra | Modern replacements for sp and raster.
+DEM download | elevatr | AWS Terrain tiles, 30–90 m resolution.
+Interactive pour-point picker | mapview, mapedit | Leaflet map pops up; click once to drop an outlet point.
+Data wrangling & utilities | dplyr, fs, parallel, readr | Pipes, file paths, multicore, fast CSV.
+Plots | ggplot2 | Generates the monthly water-balance chart.
+
 
 These will be installed automatically when you install HydroBasin.
 

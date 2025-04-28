@@ -8,8 +8,8 @@ Authors@R:
            role   = c("aut", "cre"))
 Description: Provides tools for automated basin delineation and water-balance
     analysis. Includes functionality for DEM processing, watershed
-    delineation with WhiteboxTools, and monthly run-off calculation from
-    TerraClim climate grids.
+    delineation with "WhiteboxTools"", and monthly run-off calculation from
+    "TerraClim" climate grids.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,7 +17,6 @@ RoxygenNote: 7.3.2
 Depends:
     R (>= 4.2)
 Imports:
-    climateR,
     dplyr,
     elevatr,
     fs,
@@ -31,6 +30,7 @@ Imports:
     terra,
     whitebox
 Suggests:
+    climateR,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)

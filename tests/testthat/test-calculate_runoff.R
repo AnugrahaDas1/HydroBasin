@@ -1,5 +1,6 @@
 test_that("calculate_runoff() returns tibble (+ plot)", {
   skip_on_cran()
+  skip_if_not_installed("climateR")
   skip_if_offline("aws.amazon.com")
 
   basin <- system.file("extdata/SubBasin_Main.shp", package = "HydroBasin")
