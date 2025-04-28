@@ -14,11 +14,15 @@ Depends: R (>= 4.2)
 LazyData: true
 https: //github.com/AnugrahaDas1/HydroBasin
 Imports: 
+    climateR,
+    dplyr,
     elevatr,
     fs,
+    ggplot2,
     mapedit,
     mapview,
     parallel,
+    readr,
     SAiVE,
     sf,
     terra,

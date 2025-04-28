@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 badges: ["Lifecycle:experimental", "CRAN status"]
+[![R-CMD-check](https://github.com/<you>/HydroBasin/actions/workflows/R-CMD-check.yaml/badge.svg)](…status…)
 
 `HydroBasin` is an R package designed for automated basin water-balance analysis. It provides tools for downloading and processing Digital Elevation Models (DEMs), delineating watersheds based on pour points, and calculating surface runoff using climate data.
 
