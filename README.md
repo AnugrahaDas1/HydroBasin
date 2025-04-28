@@ -50,20 +50,21 @@ remotes::install_github("AnugrahaDas1/HydroBasin")
 
 ### Dependencies
 
-HydroBasin stitches together the best bits of the R-spatial stack.
-Most install automatically with install.packages(); one lives only on GitHub and is optional.
+HydroBasin stitches together the best bits of the R-spatial ecosystem.  
+Most libraries install automatically from CRAN; one lives only on GitHub and is **optional**.
 
-Purpose | Package(s) | Notes
-Terrain preprocessing & watershed delineation | SAiVE, whitebox | Wrapper + command-line binary for WhiteboxTools. Both pulled in automatically.
-Climate grids (TerraClim) | climateR | Not on CRAN. Install only if you need run-off calculations:<br/>r<br>remotes::install_github("mikejohnson51/climateR")<br>
-Vector / raster handling | sf, terra | Modern replacements for sp and raster.
-DEM download | elevatr | AWS Terrain tiles, 30–90 m resolution.
-Interactive pour-point picker | mapview, mapedit | Leaflet map pops up; click once to drop an outlet point.
-Data wrangling & utilities | dplyr, fs, parallel, readr | Pipes, file paths, multicore, fast CSV.
-Plots | ggplot2 | Generates the monthly water-balance chart.
+| Purpose | Package(s) | Notes |
+|---------|------------|-------|
+| **Terrain preprocessing & watershed delineation** | `SAiVE`, `whitebox` | Wrapper + CLI binary for WhiteboxTools. Pulled in automatically. |
+| **Climate grids (TerraClim)** | `climateR` | *Not on CRAN.* Install only if you need run-off calculations:<br/>```r<br>remotes::install_github("mikejohnson51/climateR")``` |
+| **Vector / raster handling** | `sf`, `terra` | Modern replacements for **sp** and **raster**. |
+| **DEM download** | `elevatr` | Fetches AWS Terrain tiles (≈30–90 m). |
+| **Interactive pour-point picker** | `mapview`, `mapedit` | Leaflet map pops up; click once to drop an outlet. |
+| **Data wrangling & utilities** | `dplyr`, `fs`, `parallel`, `readr` | Pipes, file paths, multicore, fast CSV. |
+| **Plots** | `ggplot2` | Renders the monthly water-balance chart. |
 
-
-These will be installed automatically when you install HydroBasin.
+> **Tip** Skip `climateR` if you only need delineation—the package still installs;  
+> `calculate_runoff()` will politely ask you to add the extra dependency.
 
 ------------------------------------------------------------------------
 
