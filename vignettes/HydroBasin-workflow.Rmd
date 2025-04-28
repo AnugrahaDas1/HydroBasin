@@ -1,0 +1,118 @@
+---
+title: "HydroBasin: End‑to‑End Workflow"
+author: "Anugraha Das"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HydroBasin: End-to-End Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  message  = FALSE,
+  warning  = FALSE
+)
+```  
+
+## Introduction  
+`HydroBasin` streamlines two labor‑intensive hydrology tasks:
+
+1. **Watershed delineation** from an area‑of‑interest polygon.
+2. **Monthly water‑balance/run‑off** calculation using TerraClim climate grids.
+
+This vignette shows an end‑to‑end example you can run on any machine with an
+internet connection.  The *heavy* steps are wrapped in `eval = FALSE` code
+chunks so knitting never stalls when CRAN or CI checks are offline.
+
+## Load the package  
+```{r load}
+library(HydroBasin)
+```
+
+If you installed HydroBasin from GitHub, be sure the attached version is the
+one you just built:
+```{r, eval = FALSE}
+packageVersion("HydroBasin")
+```
+
+---
+
+## 1  Delineate a basin  
+We’ll start with the demo AOI shapefile bundled in the package.
+
+```{r basin, eval = FALSE}
+# Path to example extent
+aoi <- system.file("extdata/aoi_example.shp", package = "HydroBasin")
+
+# Delineate (interactive pour‑point picker will pop up)
+basin <- delineate_basin(
+  aoi      = aoi,
+  out_dir  = file.path(tempdir(), "hb_demo"),
+  quiet    = TRUE
+)
+
+# Inspect
+basin
+```
+
+> **Tip** Once you are happy with an outlet location, save the generated
+> `pour_point.shp` and feed it back to `delineate_basin()` next time to run
+> fully non‑interactive.
+
+---
+
+## 2  Download climate grids & compute run‑off  
+Using the freshly delineated boundary we pull TerraClim
+precipitation (**ppt**) and actual evapotranspiration (**aet**) for
+2020–2024, convert millimetres to cubic metres, and calculate run‑off.
+
+```{r runoff, eval = FALSE}
+runoff <- calculate_runoff(
+  basin       = basin,           # sf object from step 1
+  start_date  = "2020-01-01",
+  end_date    = "2024-03-31",
+  return_plot = TRUE,
+  quiet       = TRUE
+)
+
+# First six rows
+head(runoff$data)
+
+# Plot (returns a ggplot object)
+runoff$plot
+```
+
+<small>*Note*  The chunk is `eval = FALSE` to keep vignette build time low.
+To run locally, set `eval = TRUE` or paste the code in your R console.</small>
+
+---
+
+## 3  Persist the results  
+```{r write, eval = FALSE}
+readr::write_csv(runoff$data, "monthly_basin_runoff_volume.csv")
+```
+
+The CSV has one row per month with total precipitation, AET and run‑off
+volumes (m³) plus convenient `year` and `month` columns for aggregation.
+
+---
+
+## 4  Automation tips  
+* **Batch processing** Loop over multiple AOIs or pour‑points by storing them
+  in a data frame and calling the two functions inside `purrr::map()`.
+* **Fixed outlet** Use the `pour_pt` argument in `delineate_basin()` to
+  supply a stored pour‑point and skip the interactive step.
+* **Coarser DEM** For huge regions set `dem_zoom = 10` to download ~90 m tiles
+  and speed up WhiteboxTools.
+
+---
+
+## Session info  
+```{r session}
+sessionInfo()
+```
+

@@ -3,3 +3,5 @@
 ^LICENSE\.md$
 ^hb_test$
 ^README\.Rmd$
+^doc$
+^Meta$
