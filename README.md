@@ -1,71 +1,67 @@
-<!-- README.md is generated from README.Rmd. Run `devtools::build_readme()` after edits. -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse   = TRUE,
-  comment    = "#>",
-  fig.path   = "man/figures/README-",
-  out.width  = "100%",
-  warning    = FALSE,
-  message    = FALSE
-)
-```
+<!-- README.md is generated from README.Rmd. Run `devtools::build_readme()` after edits. -->
 
 # HydroBasin <img src="man/figures/logo.png" align="right" height="120" />
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check](https://github.com/AnugrahaDas1/HydroBasin/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AnugrahaDas1/HydroBasin/actions/workflows/R-CMD-check.yaml)
-[![CRAN status](https://www.r-pkg.org/badges/version/HydroBasin)](https://CRAN.R-project.org/package=HydroBasin)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/HydroBasin)](https://CRAN.R-project.org/package=HydroBasin)
 <!-- badges: end -->
 
 ## Overview
 
-`HydroBasin` is an R package that automates two labor-intensive hydrology tasks:
+`HydroBasin` is an R package that automates two labor-intensive
+hydrology tasks:
 
-1. **Watershed delineation** from a study-area polygon or shapefile using
-   WhiteboxTools via the *SAiVE* wrapper
-2. **Monthly water-balance/runoff estimation** from TerraClim climate grids
-   (precipitation and actual evapotranspiration)
+1.  **Watershed delineation** from a study-area polygon or shapefile
+    using WhiteboxTools via the *SAiVE* wrapper
+2.  **Monthly water-balance/runoff estimation** from TerraClim climate
+    grids (precipitation and actual evapotranspiration)
 
-The package helps hydrologists, environmental scientists, and water resource managers 
-quickly analyze watershed characteristics and water availability without extensive GIS 
-preprocessing or complex climate data handling.
+The package helps hydrologists, environmental scientists, and water
+resource managers quickly analyze watershed characteristics and water
+availability without extensive GIS preprocessing or complex climate data
+handling.
 
-Developed as the final project for the "Introduction to Programming" course in
-the *Master of Earth Observation and Geoanalysis (EAGLE)* program at the
-University of Würzburg.
+Developed as the final project for the “Introduction to Programming”
+course in the *Master of Earth Observation and Geoanalysis (EAGLE)*
+program at the University of Würzburg.
 
----
+------------------------------------------------------------------------
 
 ## Installation
 
 ### CRAN (coming soon)
-```r
+
+``` r
 install.packages("HydroBasin")
 ```
 
 ### Development version (GitHub)
-```r
+
+``` r
 # install.packages("devtools")
 remotes::install_github("AnugrahaDas1/HydroBasin")
 ```
 
 ### Dependencies
 
-HydroBasin relies on several key packages:
-- **SAiVE/WhiteboxTools**: For terrain analysis and watershed delineation
-- **climateR**: For accessing TerraClim climate data
-- **sf/terra**: For spatial data handling
-- **ggplot2**: For visualization
+HydroBasin relies on several key packages: - **SAiVE/WhiteboxTools**:
+For terrain analysis and watershed delineation - **climateR**: For
+accessing TerraClim climate data - **sf/terra**: For spatial data
+handling - **ggplot2**: For visualization
 
 These will be installed automatically when you install HydroBasin.
 
----
+------------------------------------------------------------------------
 
 ## Quick start
 
-```{r, eval = FALSE}
+``` r
 library(HydroBasin)
 
 # Path to demo AOI (area of interest) shipped with the package
@@ -87,27 +83,21 @@ runoff$plot        # Visualize the time series
 ```
 
 <details>
-<summary>First rows of the resulting tibble</summary>
 
-```{r, echo = FALSE}
-if (interactive()) {
-  library(HydroBasin)
-  shp <- system.file("extdata/aoi_example.shp", package = "HydroBasin")
-  basin <- delineate_basin(shp, quiet = TRUE, out_dir = tempdir())
-  tbl <- calculate_runoff(basin, "2020-01-01", "2020-02-28", quiet = TRUE)
-  print(head(tbl))
-}
-```
+<summary>
+
+First rows of the resulting tibble
+</summary>
 
 </details>
 
----
+------------------------------------------------------------------------
 
 ## Key Functions
 
 ### `delineate_basin()`
 
-```r
+``` r
 delineate_basin(aoi,                   # sf polygon or path to shapefile
                 out_dir = "basin_work", # output directory for intermediate files
                 dem_zoom = 12,          # DEM resolution (12 ≈ 30m, 13 ≈ 10m)
@@ -118,7 +108,7 @@ delineate_basin(aoi,                   # sf polygon or path to shapefile
 
 ### `calculate_runoff()`
 
-```r
+``` r
 calculate_runoff(basin,                # sf polygon or path to basin boundary
                  start_date,           # yyyy-mm-dd start date
                  end_date,             # yyyy-mm-dd end date
@@ -129,33 +119,34 @@ calculate_runoff(basin,                # sf polygon or path to basin boundary
                  quiet = TRUE)         # suppress download messages
 ```
 
----
+------------------------------------------------------------------------
 
 ## Detailed Documentation
 
-* **Vignette** – Run `vignette("HydroBasin-workflow")` for a complete
+- **Vignette** – Run `vignette("HydroBasin-workflow")` for a complete
   workflow example using the provided demo data.
-* **Function reference** – <https://AnugrahaDas1.github.io/HydroBasin/>
+- **Function reference** – <https://AnugrahaDas1.github.io/HydroBasin/>
   (pkgdown site, if enabled).
-* **Help pages** – Access detailed documentation with `?delineate_basin` or `?calculate_runoff`
+- **Help pages** – Access detailed documentation with `?delineate_basin`
+  or `?calculate_runoff`
 
----
+------------------------------------------------------------------------
 
 ## Use Cases
 
 HydroBasin is designed for:
 
-* **Rapid watershed delineation** without extensive GIS preprocessing
-* **Water availability assessments** at monthly time scales
-* **Hydrological research** requiring basin water balance components
-* **Educational purposes** to demonstrate hydrological concepts
-* **Initial scoping** of water resource projects
+- **Rapid watershed delineation** without extensive GIS preprocessing
+- **Water availability assessments** at monthly time scales
+- **Hydrological research** requiring basin water balance components
+- **Educational purposes** to demonstrate hydrological concepts
+- **Initial scoping** of water resource projects
 
----
+------------------------------------------------------------------------
 
 ## Example Workflow
 
-```r
+``` r
 # 1. Define an area of interest (or load your own shapefile)
 aoi <- system.file("extdata/aoi_example.shp", package = "HydroBasin")
 
@@ -185,7 +176,7 @@ annual_summary <- runoff$data %>%
   )
 ```
 
----
+------------------------------------------------------------------------
 
 ## Citation
 
@@ -194,18 +185,17 @@ If you use **HydroBasin** in academic work, please cite:
 > Das, A. (2025). *HydroBasin: Toolbox for Automated Basin Water-Balance
 > Analysis* (v0.9.0). <https://github.com/AnugrahaDas1/HydroBasin>
 
----
+------------------------------------------------------------------------
 
 ## Contributing / Issues
 
-Bug reports and pull requests are welcome on
-[GitHub Issues](https://github.com/AnugrahaDas1/HydroBasin/issues).
-Please follow the tidyverse code style and write unit tests for new features.
+Bug reports and pull requests are welcome on [GitHub
+Issues](https://github.com/AnugrahaDas1/HydroBasin/issues). Please
+follow the tidyverse code style and write unit tests for new features.
 
 ### Future Development
 
-* Support for additional climate data sources
-* Integration with streamflow gauge data
-* Enhanced visualization options
-* Water balance model calibration tools
-
+- Support for additional climate data sources
+- Integration with streamflow gauge data
+- Enhanced visualization options
+- Water balance model calibration tools

@@ -4,7 +4,7 @@ Version: 0.9.0
 Authors@R:
     person(given = "Anugraha",
            family = "Das",
-           email  = "anugrahadas@example.com",
+           email  = "anugrahadas1@gmail.com",
            role   = c("aut", "cre"))
 Description: Provides tools for automated basin delineation and water-balance
     analysis. Includes functionality for DEM processing, watershed
