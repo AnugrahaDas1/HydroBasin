@@ -1,19 +1,22 @@
 Package: HydroBasin
 Title: Toolbox for Automated Basin Water-Balance Analysis
 Version: 0.9.0
-Authors@R: 
-    person("Anugraha", "Das", , "anugrahadas@example.com", role = c("aut", "cre"))
-Description: Provides tools for automated basin delineation and water balance analysis.
-    Includes functionality for DEM processing, watershed delineation, and basic
-    hydrological analysis.
+Authors@R:
+    person(given = "Anugraha",
+           family = "Das",
+           email  = "anugrahadas@example.com",
+           role   = c("aut", "cre"))
+Description: Provides tools for automated basin delineation and water-balance
+    analysis. Includes functionality for DEM processing, watershed
+    delineation with WhiteboxTools, and monthly run-off calculation from
+    TerraClim climate grids.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Depends: R (>= 4.2)
-LazyData: true
-https: //github.com/AnugrahaDas1/HydroBasin
-Imports: 
+Depends:
+    R (>= 4.2)
+Imports:
     climateR,
     dplyr,
     elevatr,
@@ -27,9 +30,12 @@ Imports:
     sf,
     terra,
     whitebox
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-Config/testthat/edition: 3
+URL: https://github.com/AnugrahaDas1/HydroBasin
+BugReports: https://github.com/AnugrahaDas1/HydroBasin/issues
 VignetteBuilder: knitr
+Config/testthat/edition: 3
+

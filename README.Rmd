@@ -1,63 +1,111 @@
----
-output: github_document
----
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Run `devtools::build_readme()` after edits. -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  collapse   = TRUE,
+  comment    = "#>",
+  fig.path   = "man/figures/README-",
+  out.width  = "100%",
+  warning    = FALSE,
+  message    = FALSE
 )
 ```
 
-# HydroBasin
+# HydroBasin <img src="man/figures/logo.png" align="right" height="120" />
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![R-CMD-check](https://github.com/AnugrahaDas1/HydroBasin/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AnugrahaDas1/HydroBasin/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/HydroBasin)](https://CRAN.R-project.org/package=HydroBasin)
 <!-- badges: end -->
-badges: ["Lifecycle:experimental", "CRAN status"]
-[![R-CMD-check](https://github.com/<you>/HydroBasin/actions/workflows/R-CMD-check.yaml/badge.svg)](…status…)
 
-`HydroBasin` is an R package designed for automated basin water-balance analysis. It provides tools for downloading and processing Digital Elevation Models (DEMs), delineating watersheds based on pour points, and calculating surface runoff using climate data.
+`HydroBasin` automates two labor‑intensive hydrology tasks:
 
-This package was developed as part of the final work for the "Introduction to Programming" course in the Master of Earth Observation and Geoanalysis (EAGLE) program at the University of Wuerzburg.
+1. **Watershed delineation** from a study‑area polygon or shapefile using
+   WhiteboxTools via the *SAiVE* wrapper;
+2. **Monthly water‑balance / run‑off** estimation from TerraClim climate grids
+   (precipitation and actual evapotranspiration).
 
+Developed as the final project for the “Introduction to Programming” course in
+the *Master of Earth Observation and Geoanalysis (EAGLE)* program,
+University of Würzburg.
+
+---
 
 ## Installation
 
-You can install the development version of HydroBasin like so:
-
-```R
-# Install devtools if not already installed
-install.packages("devtools")
-
-# Install HydroBasin from GitHub
-devtools::install_github("AnugrahaDas1/HydroBasin")
+### CRAN (coming soon)
+```r
+install.packages("HydroBasin")
 ```
 
-## Example
+### Development (GitHub)
+```r
+# install.packages("devtools")
+remotes::install_github("AnugrahaDas1/HydroBasin")
+```
 
-This is a basic example which shows you how to solve a common problem:
+---
 
-```{r example}
+## Quick start
+
+```{r, eval = FALSE}
 library(HydroBasin)
-## basic example code
+
+# path to demo AOI shipped with the package
+shp <- system.file("extdata/aoi_example.shp", package = "HydroBasin")
+
+# 1. Delineate the basin (interactive outlet picker pops up)
+basin <- delineate_basin(shp)
+
+# 2. Calculate 2020 water balance & run‑off (returns tibble + plot)
+runoff <- calculate_runoff(basin,
+                           start_date  = "2020-01-01",
+                           end_date    = "2020-12-31",
+                           return_plot = TRUE)
+
+runoff$plot    # ggplot2 object
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+<details>
+<summary>First rows of the resulting tibble</summary>
 
-```{r cars}
-summary(cars)
+```{r, echo = FALSE}
+if (interactive()) {
+  library(HydroBasin)
+  shp <- system.file("extdata/aoi_example.shp", package = "HydroBasin")
+  basin <- delineate_basin(shp, quiet = TRUE, out_dir = tempdir())
+  tbl <- calculate_runoff(basin, "2020-01-01", "2020-02-28", quiet = TRUE)
+  print(head(tbl))
+}
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+</details>
 
-You can also embed plots, for example:
+---
 
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
+## Learning more
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+* **Vignette** – `vignette("HydroBasin-workflow")` walks through a complete
+  pipeline using the example data.
+* **Function reference** – <https://AnugrahaDas1.github.io/HydroBasin/>
+  (pkgdown site, if enabled).
+
+---
+
+## Citation
+
+If you use **HydroBasin** in academic work, please cite:
+
+> Das, A. (2025). *HydroBasin: Toolbox for Automated Basin Water‑Balance
+> Analysis* (v0.9.0). <https://github.com/AnugrahaDas1/HydroBasin>
+
+---
+
+## Contributing / Issues
+
+Bug reports and pull requests are welcome on
+[GitHub Issues](https://github.com/AnugrahaDas1/HydroBasin/issues).
+Please follow the tidyverse code style and write unit tests for new features.
+
